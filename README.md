@@ -4,9 +4,10 @@ These instructions should work out of the box. If you encounter any issue, you c
 1. Visit the official website: https://mir-group.github.io/flare/installation/install.html
 2. Contact me.
 
-First, load the anaconda module:
+First, load the anaconda module along with git (safer to have the latest one):
 
 ```console
+module load git
 module load anaconda3/2020.11 
 ```
 
@@ -42,6 +43,7 @@ If you want, you can also copy paste this in a shell script, e.g. `install.sh` (
 
 ```console
 #!/bin/bash
+module load git
 module load anaconda3/2020.11 
 source $CONDASH
 conda activate /scratch/usr/hbiblore/.conda/envs/flare2
@@ -64,7 +66,7 @@ NOTE: remember to change the conda environment according to your needs (nothing 
 
 ```console
 #!/bin/bash
-
+module load git
 module load anaconda3/2020.11               
 source $CONDASH
 conda activate flare
