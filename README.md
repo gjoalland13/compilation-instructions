@@ -84,7 +84,7 @@ cd flare/lammps_plugins
 cd ../../lammps
 mkdir build; cd build
 cmake ../cmake -DPKG_MACHDYN=yes -DDOWNLOAD_EIGEN3=yes -DPKG_MANYBODY=yes -D BUILD_SHARED_LIBS=yes -D PYTHON_EXECUTABLE=`which python`
-cmake --build .
+cmake --build . -j8
 ```
 
 If you want, you can also install the `PyLammps` python package including this extra command after the build (still within the build folder):
