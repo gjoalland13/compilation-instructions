@@ -83,7 +83,7 @@ cd flare/lammps_plugins
 ./install.sh ../../lammps
 cd ../../lammps
 mkdir build; cd build
-cmake ../cmake -DPKG_MACHDYN=yes -DDOWNLOAD_EIGEN3=yes -DPKG_MANYBODY=yes -D BUILD_SHARED_LIBS=yes
+cmake ../cmake -DPKG_MACHDYN=yes -DDOWNLOAD_EIGEN3=yes -DPKG_MANYBODY=yes -D BUILD_SHARED_LIBS=yes -D PYTHON_EXECUTABLE=`which python`
 cmake --build .
 ```
 
