@@ -35,7 +35,7 @@ module load cmake/3.16.2
 Now choose a folder of choice, and download the source code of FLARE using git and install it via pip:
 
 ```console
-git clone -b development --depth 1 development https://github.com/mir-group/flare.git
+git clone -b development --depth 1 https://github.com/mir-group/flare.git
 pip install ./flare
 ```
 
