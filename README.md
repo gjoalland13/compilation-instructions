@@ -56,6 +56,11 @@ module load cmake/3.16.2
 pip install ./flare --no-cache-dir
 ```
 
+If you encounter an __Intel MKL FATAL ERROR__, then this should solve the issue:
+```console
+conda env config vars set LD_PRELOAD=${CONDA_PREFIX}/lib/libmkl_core.so:${CONDA_PREFIX}/lib/libmkl_intel_thread.so:${CONDA_PREFIX}/lib/libiomp5.so
+```
+
 ## Interface FLARE with LAMMPS
 
 The official instructions: https://mir-group.github.io/flare/installation/lammps.html
