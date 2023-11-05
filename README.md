@@ -56,10 +56,14 @@ module load cmake/3.16.2
 pip install ./flare --no-cache-dir
 ```
 
+### Troubleshooting
+
 If you encounter an __Intel MKL FATAL ERROR__, then this should solve the issue:
 ```console
-conda env config vars set LD_PRELOAD=${CONDA_PREFIX}/lib/libmkl_core.so:${CONDA_PREFIX}/lib/libmkl_intel_thread.so:${CONDA_PREFIX}/lib/libiomp5.so
+export LD_PRELOAD=${CONDA_PREFIX}/lib/libmkl_def.so:${CONDA_PREFIX}/lib/libmkl_avx2.so:${CONDA_PREFIX}/lib/libmkl_core.so:${CONDA_PREFIX}/lib/libmkl_intel_lp64.so:${CONDA_PREFIX}/lib/libmkl_intel_thread.so:${CONDA_PREFIX}/lib/libiomp5.so
 ```
+Look also this [discussion](https://community.intel.com/t5/Intel-oneAPI-Math-Kernel-Library/mkl-fails-to-load/m-p/1155538). 
+If you compiled with a "custom" intel-MKL, then you should substitue `${CONDA_PREFIX}/lib` with the appropiate path(s) (see the discussion for hints on paths). 
 
 ## Interface FLARE with LAMMPS
 
