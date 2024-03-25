@@ -60,7 +60,7 @@ Finally, install NequIP via pip:
 Let's install also LAMMPS along with pair_nequip:
 
 ```bash
-(nice) $ git clone -b stable_29Sep2021_update2 --depth 1 git@github.com:lammps/lammps
+(nice) $ git clone -b stable_29Sep2021_update2 --depth 1 https://github.com/lammps/lammps.git
 (nice) $ git clone https://github.com/mir-group/pair_nequip.git
 (nice) $ cd pair_nequip && ./patch_lammps.sh ../lammps/
 (nice) $ cd ../lammps
