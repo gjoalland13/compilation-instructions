@@ -20,5 +20,5 @@ source /home1/bastonero/builds/nequip/bin/activate
 
 nequip-train inputs.yaml
 # traindir=./results/training
-# nequip-deploy --train-dir $traindir
+# nequip-deploy build --train-dir $traindir model.pth
 # nequip-evaluate --train-dir $traindir --dataset-config $traindir/config.yaml --batch-size 100 --repeat 3 
