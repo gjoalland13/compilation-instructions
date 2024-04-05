@@ -1,0 +1,88 @@
+# ===================== STRUCTURE ======================= #
+supercell:  
+  file: pw.in                                 
+  replicate: [1,1,1] # might want a supercell                               
+  jitter: 0.001                                        
+# ======================= GP/ML ========================= #
+flare_calc:
+  gp: SGP_Wrapper                                 
+  kernels:
+    - name: NormalizedDotProduct                  
+      sigma: 2.0                                  
+      power: 2                                      
+  descriptors:
+    - name: B2                                    
+      nmax: 8                                     
+      lmax: 4                                     
+      cutoff_function: quadratic                  
+      radial_basis: chebyshev                     
+  energy_noise: 0.01                             
+  forces_noise: 0.05                              
+  stress_noise: 0.005                             
+  cutoff: 6.0                                     
+  variance_type: local                            
+  max_iterations: 1000
+  species:
+    - 13
+    - 9
+  single_atom_energies:
+    - 0.0
+    - 0.0
+# ==================== DFT CALCULATOR ===================== #
+dft_calc:
+  name: Espresso
+  kwargs: 
+    # might need to change the QE-PW options/code binary
+    command: |
+      export SLURM_CPUS_PER_TASK=1
+      export OMP_NUM_THREADS=1
+      mpirun /home1/bastonero/packages/qe7.2/build/bin/pw.x -in PREFIX.pwi > PREFIX.pwo
+      export SLURM_CPUS_PER_TASK=12
+      export OMP_NUM_THREADS=12
+    pseudopotentials: # !!! you need to modify !!!
+      Al: Al.pbesol-n-kjpaw_psl.1.0.0.UPF
+      F: F.oncvpsp.upf
+    label: aiida
+    kpts: null
+    input_data: 
+      control:
+        prefix: aiida
+        pseudo_dir: './pseudo/' # !!! you need to create it !!!
+        outdir: './out/'
+        calculation: scf
+        tstress: True
+        tprnfor: True
+        disk_io: low
+      system:
+        nosym: False
+        ibrav: 0
+        ecutwfc: 60
+        ecutrho: 480
+        occupations: smearing
+        degauss: 0.01
+        smearing: mv
+      electrons:
+        conv_thr: 1.0e-4
+        # diagonalization: paro
+        diagonalization: ppcg
+        electron_maxstep: 600
+        mixing_beta: 0.4
+        mixing_mode: local-TF
+  params: {}
+# ======================= OTF & MD ========================= #
+otf: 
+  mode: fresh                                        
+  md_engine: NoseHoover              
+  md_kwargs:
+    temperature: 1100 # in [K * ase.units.kB]; we leave it in K, and change it in the script
+    nvt_q: 300
+  initial_velocity: 1100 # in Kelvin                    
+  dt: 0.001                             
+  number_of_steps: 10000
+  init_atoms: [0,1,2,3,4,5,6,7,8,9,10] 
+  std_tolerance_factor: -0.02                                                                             
+  max_atoms_added: -1                                
+  train_hyps: [0, 10000]                        
+  update_style: threshold                                                
+  update_threshold: 0.01                             
+  force_only: False
