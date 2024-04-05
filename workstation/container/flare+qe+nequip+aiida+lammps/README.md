@@ -46,7 +46,7 @@ Now we install FLARE. First downloading it using git, and then installing it via
 Now that flare is installed without MKL (less pain), then we can install Quantum ESPRESSO and Pytorch (needed for NequIP):
 
 ```bash
-(nice) $ mamba install -n nice qe pytorch pytorch-cpu -c conda-forge
+(nice) $ mamba install -n nice qe pytorch~-1.12.1 pytorch-cpu~=1.12.1 -c conda-forge
 ```
 
 Finally, install NequIP via pip:
