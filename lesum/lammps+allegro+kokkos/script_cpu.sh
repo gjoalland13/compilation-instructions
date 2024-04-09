@@ -7,7 +7,7 @@
 export INSTALL_DIR=../../../builds/stable_29Sep2021_update2/kokkos-cpu-ompi-intel_oneapi-2023-libtorch-1.11.0
 
 # To make the executable to run, put the folliwing lines:
-# export TORCH_PATH=/home1/bastonero/builds/libtorch/1.11.0/cpu/lib/
+# TORCH_PATH=/home1/bastonero/builds/libtorch/1.11.0/cpu/lib/
 # export LD_PRELOAD="$TORCH_PATH/libtorch.so \
 #         $TORCH_PATH/libtorch_cpu.so \
 #         $TORCH_PATH/libc10.so \
@@ -27,7 +27,6 @@ cd build_cpu
 
 export MKL_INCLUDE=$MKLROOT/MKL_INCLUDE
 export LIBTORCH_PATH=/home1/bastonero/builds/libtorch/1.11.0/cpu
-export PATH=$MPI_HOME/bin:$PATH
 
 cmake ../cmake \
         -D CMAKE_PREFIX_PATH=$LIBTORCH_PATH \

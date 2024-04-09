@@ -18,8 +18,8 @@
 
 # Where to install the installation folder, containing bin, include, ...
 # The `lmp` executable will be found at $INTALL_DIR/bin/lmp
-export INSTALL_DIR=../../../builds/stable_2Aug2023_update3/kokkos-gpu-ompi-cuda-12.1-gcc-12-libtorch-1.11.0
-# export INSTALL_DIR=../../builds/stable_2Aug2023_update3/kokkos-gpu-ompi-cuda-12.1-gcc-12-libtorch-2.2.2
+# export INSTALL_DIR=../../../builds/stable_2Aug2023_update3/kokkos-gpu-ompi-cuda-12.1-gcc-12-libtorch-1.11.0
+export INSTALL_DIR=../../../builds/stable_2Aug2023_update3/kokkos-gpu-ompi-cuda-12.1-gcc-12-libtorch-2.2.2
 
 # NOTES:
 # - LAMMPS versions earlier than 20 Jan 2023 have an old Kokkos package
@@ -44,10 +44,10 @@ mkdir build_gpu
 cd build_gpu
 
 # For CUDA v11 uncomment these lines and uncomment the other related 2 below
-export LIBTORCH_PATH=/home1/bastonero/builds/libtorch/1.11.0/cu113
-export CUDNN_PATH=/home1/bastonero/builds/cudnn/11
-# export LIBTORCH_PATH=/home1/bastonero/builds/libtorch/2.2.2/cu121
-# export CUDNN_PATH=/home1/bastonero/builds/cudnn/12
+# export LIBTORCH_PATH=/home1/bastonero/builds/libtorch/1.11.0/cu113
+# export CUDNN_PATH=/home1/bastonero/builds/cudnn/11
+export LIBTORCH_PATH=/home1/bastonero/builds/libtorch/2.2.2/cu121
+export CUDNN_PATH=/home1/bastonero/builds/cudnn/12
 
 export TORCH_CUDA_ARCH_LIST="8.0 8.6 8.9 9.0" # trick for libtorch ~v2.2
 export MKL_INCLUDE_DIR=/cluster/intel/oneapi/2023.1.0/mkl/2023.1.0/include
@@ -61,9 +61,12 @@ cmake ../cmake \
     -D PKG_KOKKOS=ON \
     -D Kokkos_ENABLE_CUDA=yes \
     -D Kokkos_ARCH_AMPERE80=yes \
+    -D Kokkos_ENABLE_OPENMP=yes \
+    -D BUILD_OMP=yes \
+    -D CAFFE2_USE_CUDNN=1 \
     -D CMAKE_INSTALL_PREFIX=$INSTALL_DIR
 
-make -j 30
+make -j 24
 make install
 
 # ----------------------------------------------------- #

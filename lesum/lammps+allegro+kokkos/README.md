@@ -13,8 +13,8 @@ Before using one of the submission scripts, make sure to:
 
 To compile the Allegro model you need in general the following
 
-- LAMMPS source code: `git clone -b release_name --depth https://github.com/lammps/lammps.git`
-- pair_allegro source code: `git clone -b release_name --depth https://github.com/mir-group/pair_allegro.git`
+- LAMMPS source code: `git clone -b release_name --depth 1 https://github.com/lammps/lammps.git`
+- pair_allegro source code: `git clone -b release_name --depth 1 https://github.com/mir-group/pair_allegro.git`
 - Libtorch: see how to get libtorch in this repository
 - cuDNN: if not yet installed on the cluster, and if want to use GPUs (recommended, best performance). See cuDNN on the previous folder.
 
@@ -45,4 +45,12 @@ After having followed the instructions below, use and adapt `script_gpu.sh`.
 ## Known issues
 
 - LAMMPS versions earlier than 20 Jan 2023 have an old Kokkos package which comes with a bug related to GCC v12. One simply needs to change a line in lammps/lib/kokkos/bin/nvcc_wrapper, in particular comment `default_arch="sm_35"` and uncomment the following one (should be `#default_arch="sm_50"`). Then the following script will work. Reference: https://github.com/lammps/lammps/issues/3584
- - There is an issue with Libtorch ~v2.2 and CUDA ARCH selection. Solution is to export TORCH_CUDA_ARCH_LIST (see below). Reference: https://github.com/pytorch/pytorch/issues/113948
+- There is an issue with Libtorch ~v2.2 and CUDA ARCH selection. Solution is to export TORCH_CUDA_ARCH_LIST (see below). Reference: https://github.com/pytorch/pytorch/issues/113948
+- There is a compatibility issue for stable LAMMPS versions above 29 Sep 2021 with pair_allegro. Just use the multicut branch. See: https://github.com/mir-group/pair_allegro/issues/30 
+- If you want to use the `pair_allegro/stress` branch (or the latest `multicut` branch), note that:
+    * If you compiled the Allegro potential having `nequip<6.0.0`, then you will encounter an problem. To solve it, you can:
+        1. Simply change in the LAMMPS input `pair_style allegro` to `pair_style allegro3232` (or allegro6464 or mixture of it). 
+        32 and 64 refer how the model handles tensor types, which from `nequip=0.6.0` can also be mixed.
+        2. Upgrade `nequip` to the develop branch (it should be v0.6.0). To do it, activate the python environment and run:
+        `pip install nequip@git+https://github.com/mir-group/nequip.git`. Then, you simply need to recompile the potential (you don't need to redo the optimization). Follow the steps here: https://github.com/mir-group/nequip/issues/69#issuecomment-1129273665
+    * There might be some compatibility issue when using a model that cannot predict stress (virial). In this case, you would need to recompile LAMMPS patched with the `pair_allegro/main` branch.
