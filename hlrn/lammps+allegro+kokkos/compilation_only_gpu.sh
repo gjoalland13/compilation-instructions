@@ -38,6 +38,7 @@ cmake ../cmake \
     -D FFT_KOKKOS=CUFFT \
     -D Kokkos_ENABLE_CUDA=yes \
     -D Kokkos_ARCH_AMPERE80=yes \
+    -D Kokkos_ENABLE_OPENMP=yes \
     -D CMAKE_INSTALL_PREFIX=$INSTALL_DIR
 
 make -j 24
