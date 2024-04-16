@@ -19,7 +19,7 @@ export MKL_INCLUDE_DIR=$MKLROOT/include
 # Download and patch
 # ==================================================================================== #
 cd ${BUILD}
-# LAMMPS 23.08
+# LAMMPS 24.02
 echo "---------------------------------------------------------------------"
 echo "Downloading LAMMPS"
 echo "---------------------------------------------------------------------"
@@ -33,7 +33,7 @@ echo "---------------------------------------------------------------------"
 git clone -b multicut --depth 1 https://github.com/mir-group/pair_allegro.git pair_allegro
 echo "Patching LAMMPS from pair_allegro"
 cd pair_allegro
-./patch_lammps.sh ../lammps/
+./patch_lammps.sh ../lammps-7Feb2024/
 cd ..
 # Libtorch 2.2.2, cuda 12.1
 echo "---------------------------------------------------------------------"
@@ -51,10 +51,11 @@ tar -xf cudnn-linux-x86_64-9.0.0.312_cuda12-archive.tar.xz
 mv cudnn-linux-x86_64-9.0.0.312_cuda11-archive cudnn
 rm cudnn-linux-x86_64-9.0.0.312_cuda11-archive.tar.xz
 
+
 echo "---------------------------------------------------------------------"
 echo "Accessing LAMMPS folder and start compilation"
 echo "---------------------------------------------------------------------"
-cd lammps
+cd lammps-7Feb2024
 
 # ==================================================================================== #
 # Compile
@@ -83,6 +84,7 @@ cmake ../cmake \
     -D FFT_KOKKOS=CUFFT \
     -D Kokkos_ENABLE_CUDA=yes \
     -D Kokkos_ARCH_AMPERE80=yes \
+    -D Kokkos_ENABLE_OPENMP=yes \
     -D CMAKE_INSTALL_PREFIX=$INSTALL_DIR
 
 make -j 24
