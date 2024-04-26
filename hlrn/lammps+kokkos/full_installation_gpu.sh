@@ -38,7 +38,6 @@ cmake ../cmake \
     -D CMAKE_C_COMPILER=nvc \
     -D CMAKE_CXX_COMPILER=nvc++ \
     -D CMAKE_FORTRAN_COMPILER=nvfortran \
-    -D CMAKE_PREFIX_PATH=$LIBTORCH_PATH \
     -D BUILD_MPI=yes \
     -D BUILD_OMP=yes \
     -D BUILD_SHARED_LIBS=yes \
