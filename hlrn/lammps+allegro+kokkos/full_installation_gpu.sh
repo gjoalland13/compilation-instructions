@@ -5,6 +5,7 @@
 # ==================================================================================== #
 module load cmake/3.26.4
 module load nvhpc/23.3
+module load cuda/11.8
 module load fftw3/gcc.8
 
 INSTALL_DIR=../install
@@ -39,15 +40,15 @@ cd ..
 echo "---------------------------------------------------------------------"
 echo "Downloading and extracting Libtorch"
 echo "---------------------------------------------------------------------"
-wget 'https://download.pytorch.org/libtorch/cu121/libtorch-cxx11-abi-shared-with-deps-2.2.2%2Bcu121.zip'
-unzip -q libtorch-cxx11-abi-shared-with-deps-2.2.2+cu121.zip
-rm libtorch-cxx11-abi-shared-with-deps-2.2.2+cu121.zip
+wget 'https://download.pytorch.org/libtorch/cu113/libtorch-cxx11-abi-shared-with-deps-1.11.0%2Bcu113.zip'
+unzip -q libtorch-cxx11-abi-shared-with-deps-1.11.0+cu113.zip
+rm libtorch-cxx11-abi-shared-with-deps-1.11.0+cu113.zip
 # cuDNN
 echo "---------------------------------------------------------------------"
 echo "Downloading and extracting cuDNN"
 echo "---------------------------------------------------------------------"
-wget "https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-x86_64/cudnn-linux-x86_64-9.0.0.312_cuda12-archive.tar.xz"
-tar -xf cudnn-linux-x86_64-9.0.0.312_cuda12-archive.tar.xz
+wget "https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-x86_64/cudnn-linux-x86_64-9.0.0.312_cuda11-archive.tar.xz"
+tar -xf cudnn-linux-x86_64-9.0.0.312_cuda11-archive.tar.xz
 mv cudnn-linux-x86_64-9.0.0.312_cuda11-archive cudnn
 rm cudnn-linux-x86_64-9.0.0.312_cuda11-archive.tar.xz
 
@@ -69,6 +70,7 @@ cmake ../cmake \
     -D CMAKE_CXX_COMPILER=nvc++ \
     -D CMAKE_FORTRAN_COMPILER=nvfortran \
     -D CMAKE_PREFIX_PATH=$LIBTORCH_PATH \
+    -D CUDA_TOOLKIT_ROOT_DIR=$CUDA_PATH \
     -D MKL_INCLUDE_DIR=$MKL_INCLUDE_DIR \
     -D BUILD_MPI=yes \
     -D BUILD_OMP=yes \

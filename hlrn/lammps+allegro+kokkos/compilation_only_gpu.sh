@@ -5,6 +5,7 @@
 # ==================================================================================== #
 module load cmake/3.26.4
 module load nvhpc/23.3
+module load cuda/12.1
 module load fftw3/gcc.8
 
 INSTALL_DIR=../install
@@ -23,6 +24,7 @@ cmake ../cmake \
     -D CMAKE_CXX_COMPILER=nvc++ \
     -D CMAKE_FORTRAN_COMPILER=nvfortran \
     -D CMAKE_PREFIX_PATH=$LIBTORCH_PATH \
+    -D CUDA_TOOLKIT_ROOT_DIR=$CUDA_PATH \
     -D MKL_INCLUDE_DIR=$MKL_INCLUDE_DIR \
     -D BUILD_MPI=yes \
     -D BUILD_OMP=yes \
