@@ -14,7 +14,7 @@ Create the conda environment:
 
 ```console
 mamba create -yn sscha-flare -c conda-forge \
-    python=3.9 gfortran libblas lapack openmpi julia openmpi-mpicc \
+    python=3.9 gfortran libblas lapack julia \
     pip numpy scipy spglib=2.2 gcc gxx cmake openmp liblapacke openblas \
     aiida-core aiida-core.services
 mamba activate sscha-flare
@@ -32,7 +32,7 @@ One should also consider properly install AiiDA and making an AiiDA profile afte
 Install aiida-quantumespresso and some other packages via pip:
 
 ```console
-pip install ase julia mpi4py aiida-quantumespresso aiida-pseudo
+pip install ase julia aiida-quantumespresso aiida-pseudo
 ```
 
 Install the SSCHA and its dependencies:
