@@ -13,7 +13,9 @@ These instructions should work out of the box. If you encounter any issue, you c
 Create the conda environment:
 
 ```console
-mamba create -yn sscha-flare -c conda-forge python=3.9 numpy git spglib=2.2 scipy pytest julia gfortran libblas lapack pip gcc gxx cmake openmp liblapacke openblas aiida-core aiida-core.services
+mamba create -yn sscha-flare -c conda-forge python=3.9 numpy git \
+spglib=2.2 scipy pytest julia gfortran libblas lapack pip gcc gxx \
+cmake openmp liblapacke openblas aiida-core aiida-core.services
 mamba activate sscha-flare
 ```
 
@@ -67,18 +69,18 @@ Usually, the known issues are:
     Look also this [discussion](https://community.intel.com/t5/Intel-oneAPI-Math-Kernel-Library/mkl-fails-to-load/m-p/1155538). 
     If you compiled with a "custom" intel-MKL, then you should substitue `${CONDA_PREFIX}/lib` with the appropiate path(s) (see the discussion for hints on paths).
   
-- Installing a package using `python setup install` is usually deprecated, and one should rather use pip. Nevertheless, we recommend using it here because the installation of `CellConstructor` and `python-sscha` can conflict with Julia installation when using pip. If you prefer to install SSCHA using pip anyway, you may encounter an error when building the `PyCall` and `Conda` Julia dependencies. Usually, installing the other packages manually first and then the remaining two with the standard procedure will solve the problem. Proceed as follows:
+- Installing a package using `python setup install` is usually deprecated, and one should rather use pip. Nevertheless, we recommend using it here because the installation of CellConstructor and python-sscha can conflict with Julia installation when using pip. If you prefer to install SSCHA using pip anyway, you may encounter an error when building the PyCall and Conda julia dependencies. Usually, installing the other packages manually first and then the remaining two with the standard procedure will solve the problem. Proceed as follows:
     Type `julia`. Inside the julia prompt, type `]`. The prompt should change color and display the julia version ending with `pkg>`.
     Install the packages:
     ```console
     pkg> add SparseArrays, LinearAlgebra, InteractiveUtils, PyCall
     ```
-    This will build all the other dependencies and will raise an error for `Conda` and `PyCall` that you should ignore.
+    This will build all the other dependencies and will raise an error for Conda and PyCall that you should ignore.
     Press backspace to return to the standard julia prompt and exit with
     ```console
     julia> exit()
     ```
-    Finally, having the other dependencies installed, julia will handle the error of `PyCall` and `Conda`. You can install them using:
+    Finally, having the other dependencies installed, julia will handle the error of PyCall and Conda. You can install them using:
     ```console
     python -c 'import julia; julia.install()'
     ```
