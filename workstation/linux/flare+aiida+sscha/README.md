@@ -11,14 +11,12 @@ These instructions should work out of the box. If you encounter any issue, you c
 ## Installation instruction
 
 Create the conda environment:
-
 ```console
-mamba create -yn sscha-flare -c conda-forge python=3.9 numpy git \
+mamba create -yn sscha-flare -c conda-forge python=3.9 git \
 spglib=2.2 scipy pytest julia gfortran libblas lapack pip gcc gxx \
 cmake openmp liblapacke openblas aiida-core aiida-core.services
 mamba activate sscha-flare
 ```
-
 
 Clone the following packages under development:
 ```console
@@ -52,6 +50,11 @@ pip install tdscha
 Finally, the SSCHA benefits from julia to automatically speedup the calculation. Install the julia dependencies:
 ```console
 python -c 'import julia; julia.install()'
+```
+
+Reinstall numpy enabling the OMP paralelization:
+```console
+pip install --no-binary :all: numpy~=1.22.0 --force-reinstall
 ```
 
 ## Known issues
