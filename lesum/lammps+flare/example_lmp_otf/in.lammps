@@ -1,0 +1,38 @@
+atom_modify map yes
+units           metal
+atom_style      atomic
+
+lattice         diamond 5.431
+region          box block 0 1 0 1 0 1
+create_box      1 box
+create_atoms    1 box
+displace_atoms all random 0.05 0.05 0.05 142857 units box
+
+python otf input 1 SELF format p file si.py
+python otf invoke
+fix otf all python/invoke 20 post_force otf
+
+newton on
+pair_style      flare
+pair_coeff * * si.otf.flare
+mass            1 28.06
+
+velocity        all create 300.0 376847 loop geom
+
+thermo 10
+thermo_style custom step time temp pe etotal press spcpu cpuremain
+
+compute peatom all pe/atom
+compute stressatom all stress/atom NULL virial
+
+dump 1 all custom 100 dump.si.otf id type x y z fx fy fz c_peatom c_stressatom[*]
+
+timestep        0.002
+
+variable num_steps equal $(5/dt)
+fix             1 all npt temp 300 300 $(100*dt) iso 0.0 0.0 $(1000*dt)
+run             ${num_steps}
+fix             1 all npt temp 300 1500 $(100*dt) iso 0.0 0.0 $(1000*dt)
+run             ${num_steps}
+fix             1 all npt temp 1500 1500 $(100*dt) iso 0.0 0.0 $(1000*dt)
+run             $(2*v_num_steps)
