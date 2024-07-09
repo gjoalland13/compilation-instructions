@@ -16,8 +16,10 @@ module load intel/oneapi-2023.1.0
 module load compiler/2023.1.0
 module load mkl/2023.1.0
 
+# export CC=/cluster/intel/oneapi/2023.1.0/compiler/2023.1.0/linux/bin/icx
+# export CXX=/cluster/intel/oneapi/2023.1.0/compiler/2023.1.0/linux/bin/icpx
+
 # (*) Create Python venv
-source ${PYTHON_VENV_PATH}/bin/activate
 python -m venv ${PYTHON_VENV_PATH}
 source ${PYTHON_VENV_PATH}/bin/activate
 $PYTHON_VENV_PATH/bin/python -m pip install --upgrade pip
@@ -26,9 +28,14 @@ $PYTHON_VENV_PATH/bin/python -m pip install --upgrade pip
 # NOTE: Last command is to make sure Numpy is compiled and linked against MKL
 cd ${PYTHON_VENV_PATH}
 git clone --depth 1 https://github.com/mir-group/flare.git flare-lammps
-cd flare-lammps 
+cd flare-lammps
 pip install .
+# pip uninstall cmake # might help
 pip install --no-binary :all: numpy~=1.22.0 --force-reinstall
+
+# (*) Patch ASE
+ase_file="$(dirname $(python3 -c 'import ase; print(ase.__file__)'))/calculators/lammpsrun.py"
+sed -i 's/line.startswith(_custom_thermo_mark)/line.strip\(\).startswith\("Step"\)/g' $ase_file
 
 # (*) Download LAMMPS
 cd ${BUILD}
@@ -58,9 +65,10 @@ cmake ../cmake \
     -D BUILD_OMP=yes \
     -D PKG_PYTHON=yes \
     -D PKG_MANYBODY=yes \
+    -D PKG_PLUMED=yes \
     -D BUILD_SHARED_LIBS=yes \
     -D DOWNLOAD_PLUMED=yes \
-    -D PLUMED_MODE=static \
+    -D PLUMED_MODE=runtime \
     -D DOWNLOAD_EIGEN3=yes \
     -D PKG_MACHDYN=yes \
     -D CMAKE_INSTALL_PREFIX=$INSTALL_DIR
@@ -68,7 +76,3 @@ cmake ../cmake \
 make -j 40
 make install-python
 make install
-
-# (*) Patch ASE
-ase_file="$(dirname $(python3 -c 'import ase; print(ase.__file__)'))/calculators/lammpsrun.py"
-sed -i 's/line.startswith(_custom_thermo_mark)/line.strip\(\).startswith\("Step"\)/g' $ase_file

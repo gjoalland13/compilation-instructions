@@ -5,8 +5,9 @@
 # ==================================================================== #
 
 # ------------------------> Modify here ! <------------------------ #
-export PYTHON_VENV_PATH=/home1/bastonero/builds/flare-lammps
-export INSTALL_DIR=../../../builds/stable_29Sep2021_update2/kokkos-cpu-ompi-intel_oneapi-2023-libtorch-1.11.0
+PYTHON_VENV_PATH=${HOME}/builds/flare-lammps
+INSTALL_DIR=${HOME}/builds/lammps/builds/stable_2Aug2023_update3/cpu-intel-flare-plumed_lammps-02082023
+BUILD=${HOME}/builds
 # ----------------------------------------------------------------- #
 
 source $PYTHON_VENV_PATH/bin/activate
@@ -28,9 +29,10 @@ cmake ../cmake \
     -D BUILD_OMP=yes \
     -D PKG_PYTHON=yes \
     -D PKG_MANYBODY=yes \
+    -D PKG_PLUMED=yes \
     -D BUILD_SHARED_LIBS=yes \
     -D DOWNLOAD_PLUMED=yes \
-    -D PLUMED_MODE=static \
+    -D PLUMED_MODE=runtime \
     -D DOWNLOAD_EIGEN3=yes \
     -D PKG_MACHDYN=yes \
     -D CMAKE_INSTALL_PREFIX=$INSTALL_DIR
@@ -38,3 +40,6 @@ cmake ../cmake \
 make -j 40
 make install-python
 make install
+
+ase_file="$(dirname $(python3 -c 'import ase; print(ase.__file__)'))/calculators/lammpsrun.py"
+sed -i 's/line.startswith(_custom_thermo_mark)/line.strip\(\).startswith\("Step"\)/g' $ase_file
