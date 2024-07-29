@@ -26,6 +26,6 @@ $ unzip -q libtorch-cxx11-abi-shared-with-deps-1.13.0+cu117.zip
 ## Libtorch 2.2.2, CUDA 12.1
 
 ```console
-$ wget 'https://download.pytorch.org/libtorch/cu121/libtorch-cxx11-abi-shared-with-deps-2.2.2%2Bcu117.zip'
+$ wget 'https://download.pytorch.org/libtorch/cu121/libtorch-cxx11-abi-shared-with-deps-2.2.2%2Bcu121.zip'
 $ unzip -q libtorch-cxx11-abi-shared-with-deps-2.2.2+cu121.zip
 ```
