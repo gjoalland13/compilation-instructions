@@ -37,5 +37,5 @@ export OMP_PLACES=threads
 
 # For parallelization flags, see: https://docs.lammps.org/Speed_kokkos.html#running-on-gpus
 
-# 1 node, 12 MPI tasks/node, 4 GPUs/node (4 GPUs total)
-mpirun -np 1 lmp -k on g 2 t 12 -sf kk -in in.lj
+# 1 node, 12 OMP tasks/mpi task, 4 GPUs/node (4 GPUs total), 4 MPI tasks (1 per GPU)
+mpirun -np 4 lmp -k on g 4 t 12 -sf kk -in in.lj
