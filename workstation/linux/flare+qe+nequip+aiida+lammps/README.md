@@ -13,7 +13,7 @@ These instructions should work out of the box. If you encounter any issue, you c
 Let's install first some basics along with AiiDA and its services:
 
 ```bash
-$ mamba create --name nice python=3.9 pip aiida-core aiida-core.services gcc gxx cmake openmp liblapacke openblas
+$ mamba create -yn nice -c conda-forge python=3.9 pip aiida-core aiida-core.services gcc gxx cmake openmp liblapacke openblas
 $ mamba activate nice
 ```
 
@@ -43,10 +43,10 @@ Now we install FLARE. First downloading it using git, and then installing it via
 (nice) $ pip install ./flare --no-cache-dir
 ```
 
-Now that flare is installed without MKL (less pain), then we can install Quantum ESPRESSO and Pytorch (needed for NequIP):
+Now that flare is installed without MKL (less pain), we can install Quantum ESPRESSO and Pytorch (needed for NequIP):
 
 ```bash
-(nice) $ mamba install -n nice qe pytorch~-1.12.1 pytorch-cpu~=1.12.1 -c conda-forge
+(nice) $ mamba install -yn nice -c conda-forge qe pytorch~=-1.12.1 pytorch-cpu~=1.12.1
 ```
 
 Finally, install NequIP via pip:
