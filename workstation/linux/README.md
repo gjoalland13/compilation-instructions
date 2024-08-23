@@ -51,11 +51,6 @@ Finally, the SSCHA benefits from julia to automatically speed up the calculation
 python -c 'import julia; julia.install()'
 ```
 
-Reinstall numpy enabling the OMP paralelization:
-```console
-pip install --no-binary :all: numpy~=1.23.0 --force-reinstall
-```
-
 ## Known issues
 
 Usually, the known issues are:
