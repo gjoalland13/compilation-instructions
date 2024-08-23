@@ -53,7 +53,7 @@ python -c 'import julia; julia.install()'
 
 Reinstall numpy enabling the OMP paralelization:
 ```console
-pip install --no-binary :all: numpy~=1.22.0 --force-reinstall
+pip install --no-binary :all: numpy~=1.23.0 --force-reinstall
 ```
 
 ## Known issues
