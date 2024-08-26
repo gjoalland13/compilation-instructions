@@ -14,7 +14,7 @@ Create the conda environment:
 ```console
 mamba create -yn sscha-nequip -c conda-forge python=3.9 git spglib=2.2 scipy \
 pytest julia gfortran libblas lapack pip gcc gxx cmake openmp liblapacke \
-openblas aiida-core aiida-core.services conda-forge pytorch=1.11 pytorch-cpu=1.11
+openblas aiida-core aiida-core.services pytorch=2.0 pytorch-cpu=2.0
 mamba activate sscha-nequip
 ```
 
