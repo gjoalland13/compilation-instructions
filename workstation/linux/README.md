@@ -12,9 +12,9 @@ These instructions should work out of the box. If you encounter any issue, you c
 
 Create the conda environment:
 ```console
-mamba create -yn sscha-nequip -c conda-forge python=3.9 git \
-spglib=2.2 scipy pytest julia gfortran libblas lapack pip gcc gxx \
-cmake openmp liblapacke openblas aiida-core aiida-core.services
+mamba create -yn sscha-nequip -c conda-forge python=3.9 git spglib=2.2 scipy \
+pytest julia gfortran libblas lapack pip gcc gxx cmake openmp liblapacke \
+openblas aiida-core aiida-core.services conda-forge pytorch=1.11 pytorch-cpu=1.11
 mamba activate sscha-nequip
 ```
 
@@ -22,11 +22,6 @@ Clone the following packages under development:
 ```console
 git clone -b new/flare-interface --depth 1 https://github.com/bastonero/python-sscha.git
 git clone --depth 1 https://github.com/SSCHAcode/CellConstructor.git
-```
-
-Install Pytorch (needed for NequIP):
-```console
-conda install -yn sscha-nequip -c conda-forge pytorch~=1.12.1 pytorch-cpu~=1.12.1
 ```
 
 Install aiida-quantumespresso, NequIP and some other packages via pip:
