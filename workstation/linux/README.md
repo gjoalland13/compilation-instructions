@@ -1,4 +1,4 @@
-# How to compile NEQUIP + AiiDA + SSCHA in a container/fresh computer
+# How to compile NEQUIP + SSCHA in a container/fresh computer
 
 Using a MAMBA (a faster version of conda) environment is the easiest way.
 
@@ -14,31 +14,13 @@ Create the conda environment:
 ```console
 mamba create -yn sscha-nequip -c conda-forge python=3.9 git spglib=2.2 scipy \
 pytest julia gfortran libblas lapack pip gcc gxx cmake openmp liblapacke \
-openblas aiida-core aiida-core.services pytorch=2.0 pytorch-cpu=2.0
+openblas pytorch=2.0 pytorch-cpu=2.0
 mamba activate sscha-nequip
 ```
 
-Clone the following packages under development:
+Install SSCHA, NequIP and some other packages via pip:
 ```console
-git clone -b new/flare-interface --depth 1 https://github.com/bastonero/python-sscha.git
-git clone --depth 1 https://github.com/SSCHAcode/CellConstructor.git
-```
-
-Install aiida-quantumespresso, NequIP and some other packages via pip:
-```console
-pip install ase==3.22 julia aiida-quantumespresso aiida-pseudo nequip
-```
-
-One should also consider properly installing AiiDA, making an AiiDA profile afterwards, and setting computer and codes.
-
-
-Install the SSCHA and its dependencies:
-```console
-cd CellConstructor
-python setup.py install
-cd ../python-sscha
-python setup.py install
-pip install tdscha
+pip install ase==3.22 julia nequip cellconstructor python-sscha tdscha
 ```
 
 Finally, the SSCHA benefits from julia to automatically speed up the calculation. Install the julia dependencies:
