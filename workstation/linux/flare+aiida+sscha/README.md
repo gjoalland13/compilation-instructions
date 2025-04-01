@@ -41,9 +41,10 @@ pip install .
 Install the SSCHA and its dependencies:
 ```console
 cd ../CellConstructor
-python setup.py install
+pip install requirements.txt
+pip install .
 cd ../python-sscha
-python setup.py install
+pip install .
 pip install tdscha
 ```
 
@@ -54,7 +55,7 @@ python -c 'import julia; julia.install()'
 
 Reinstall numpy enabling the OMP paralelization:
 ```console
-pip install --no-binary :all: numpy~=1.22.0 --force-reinstall
+pip install numpy=1.26 --force-reinstall
 ```
 
 ## Known issues
