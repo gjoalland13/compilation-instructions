@@ -12,10 +12,10 @@ These instructions should work out of the box. If you encounter any issue, you c
 
 Create the conda environment:
 ```console
-mamba create -yn sscha-flare -c conda-forge python=3.9 git \
+mamba create -yn sscha -c conda-forge python=3.9 git \
 spglib=2.2 scipy pytest julia gfortran libblas lapack pip gcc gxx \
 cmake openmp liblapacke openblas aiida-core aiida-core.services
-mamba activate sscha-flare
+mamba activate sscha
 ```
 
 Clone the following packages under development:
@@ -41,7 +41,7 @@ pip install .
 Install the SSCHA and its dependencies:
 ```console
 cd ../CellConstructor
-pip install requirements.txt
+pip install -r requirements.txt
 pip install .
 cd ../python-sscha
 pip install .
