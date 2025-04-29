@@ -26,13 +26,9 @@ git clone --depth 1 https://github.com/SSCHAcode/CellConstructor.git
 
 One should also consider properly install AiiDA and making an AiiDA profile afterwards, and set computer and codes.
 
-Install aiida-quantumespresso and some other packages via pip:
-```console
-pip install ase==3.22 julia setuptools==73.0
-```
-
 Install the SSCHA and its dependencies:
 ```console
+pip install ase==3.22 julia setuptools==73.0
 cd CellConstructor
 pip install .
 cd ../python-sscha
